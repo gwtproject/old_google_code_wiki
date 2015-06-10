@@ -1,0 +1,11 @@
+# Introduction
+
+As GWT has grown into a collection of related projects, there is a growing need for sharing tools among the various gwt projects. There are several approaches for how this sharing can be achieved. However, there is no "one size fits all" solution. This document outlines a simple process to figure out the right solution in various scenarios.
+
+# Details
+
+
+Tools that need to be shared among the various gwt projects can be divided into three categories. We specify the best practices for each category.
+  1. **Tools that are rarely updated** Such tools should be checked into http://google-web-toolkit.googlecode.com/svn/tools These tools often include third party tools like apache or eclipse libs or our own modified versions of these. In each case, include the appropriate COPYING and LICENSING information, as required by the tool's license. The files in this directory are rarely deleted. So append the version information to the file's name, so that future versions can be added without affecting the existing versions. In case of local modifications, also include the src files and a patch file to aid debugging in the future.
+  1. **Tools that might be frequently updated and are stand-alone** Stand-alone means no dependency on rest of the gwt code. Examples include ant task for obtaining the svn information. We often own the source code for these tools. Moreover, currently all such tools are ant tasks. The right place for these tools is https://google-web-toolkit.googlecode.com/svn/trunk/build-tools Different sub-projects can pull in this code using svn-external or g4client (? -- confirm with Kelly).
+  1. **Tools that might be frequently updated and are not stand-alone** An example is ApiChecker which depends on gwt-dev.jar to build TypeOracle.  The source code for such tools cannot be pulled in separately from the rest of gwt-trunk. These tools need to be included in the gwt distribution so that when they are run, a compatible version of the gwt-trunk code is available. Hopefully, these tools themselves do not substantially increase the size of the gwt distribution.
